@@ -6,7 +6,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/check-health')
-  checkHealth(): boolean {
-    return this.appService.checkHealth();
+  checkHealth2(): boolean {
+    return this.appService.checkHealth2();
+  }
+
+  @Get('/check-health')
+  async checkHealth() {
+    return { health: true };
   }
 }

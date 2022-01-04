@@ -1,0 +1,39 @@
+service:
+ name: datadog-integration-demo
+
+plugins:
+ - 'serverless-plugin-typescript'
+ - serverless-plugin-optimize
+ - serverless-offline
+
+provider:
+ name: aws
+ runtime: nodejs12.x
+
+custom:
+    serverless-offline:
+        noPrependStageInUrl: true
+
+functions:
+ main: # The name of the lambda function
+   # The module 'handler' is exported in the file 'src/lambda'
+   handler: src/lambda.handler
+   events:
+     - http:
+         method: any
+         path: /{any+}
+     - http:
+         method: get
+         path: /check-health
+         cors:
+           origin: "*"
+           headers:
+             - Content-Type
+             - X-Amz-Date
+             - Authorization
+             - X-Api-Key
+             - X-Amz-Security-Token
+             - X-Amz-User-Agent
+             - X-Order-Id
+             - X-Fc-Version-Code
+             - X-Fc-Version-Name
